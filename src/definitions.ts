@@ -17,7 +17,7 @@ export interface PermissionsRequestResult {
     results: any[];
 }
 
-export interface AppPermissionsPluginPlugin extends Plugin {
+export interface AppPermissionsPlugin extends Plugin {
     query(options: PermissionsOptions): Promise<PermissionResult>;
 }
 
