@@ -6,6 +6,11 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+
 @NativePlugin()
 public class AppPermissionsPlugin extends Plugin {
 
