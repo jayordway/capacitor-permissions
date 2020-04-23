@@ -23,7 +23,8 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
          return Promise.reject('This browser does not support the Permissions API');
        }
 
-       const ret = await navigator.permissions.query({ options.name });
+       const name = options.name;
+       const ret = await navigator.permissions.query({ name });
 
        return {
          state: ret.state
