@@ -3,7 +3,7 @@
     s.name = 'CapacitorAppPermissions'
     s.version = '0.0.2'
     s.summary = 'A Capacitor plugin for accessing and requesting app permissions'
-    s.license = ''
+    s.license = 'MIT'
     s.homepage = 'https://github.com/jayordway/capacitor-app-permissions.git'
     s.author = 'Jay Ordway'
     s.source = { :git => 'https://github.com/jayordway/capacitor-app-permissions.git', :tag => s.version.to_s }
