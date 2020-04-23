@@ -5,8 +5,7 @@ import { PermissionsPlugin, PermissionsOptions, PermissionResult, PermissionType
 export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlugin {
    constructor(){
                     super({
-                      name: "AppPermissions",
-                      platforms: ["web"]
+                      name: "AppPermissions"
                     });
                   }
 

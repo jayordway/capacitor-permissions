@@ -1,4 +1,10 @@
-import com.app.permissions.MainActivity;
+package com.app.permissions;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.Plugin;
+
+import java.util.ArrayList;
 
 public class MainActivity extends BridgeActivity {
     @Override
