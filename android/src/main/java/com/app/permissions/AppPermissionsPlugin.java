@@ -10,6 +10,23 @@ import com.getcapacitor.PluginMethod;
 public class AppPermissionsPlugin extends Plugin {
 
     @PluginMethod
+    public void request(PluginCall call){
+        JSObject ret = new JSObject();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "No Permissions" , Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, 0);
+            ret.put("state", "GRANTED");
+        }
+        else
+        {
+            ret.put("state", "ALREADY GRANTED");
+        }
+
+        call.resolve(ret);
+    }
+
+    @PluginMethod
     public void query(PluginCall call) {
         String name = call.getString("name");
 
