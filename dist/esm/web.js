@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { WebPlugin } from '@capacitor/core';
+import { PermissionType } from './definitions';
 export class AppPermissionsPluginWeb extends WebPlugin {
     constructor() {
         super({
