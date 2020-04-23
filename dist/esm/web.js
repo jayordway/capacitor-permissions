@@ -1,5 +1,11 @@
 import { WebPlugin } from '@capacitor/core';
 export class AppPermissionsPluginWeb extends WebPlugin {
+    constructor() {
+        super({
+            name: "AppPermissions",
+            platforms: ["web"]
+        });
+    }
 }
 const AppPermissionsPlugin = new AppPermissionsPluginWeb();
 export { AppPermissionsPlugin };

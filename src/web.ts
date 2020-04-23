@@ -2,7 +2,7 @@ import { WebPlugin } from '@capacitor/core';
 import { AppPermissionsPluginPlugin, PermissionsOptions, PermissionResult } from './definitions';
 
 
-export class AppPermissionsPluginWeb extends WebPlugin implements AppPermissionsPluginPlugin {
+export class AppPermissionsPluginWeb extends WebPlugin implements AppPermissionsPlugin {
    constructor(){
                     super({
                       name: "AppPermissions",
