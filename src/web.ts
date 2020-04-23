@@ -3,7 +3,12 @@ import { AppPermissionsPluginPlugin, PermissionsOptions, PermissionResult } from
 
 
 export class AppPermissionsPluginWeb extends WebPlugin implements AppPermissionsPluginPlugin {
-   constructor();
+   constructor(){
+                    super({
+                      name: "AppPermissions",
+                      platforms: ["web"]
+                    });
+                  }
    query(options: PermissionsOptions): Promise<PermissionResult>;
 }
 

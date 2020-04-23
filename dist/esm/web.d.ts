@@ -1,12 +1,8 @@
 import { WebPlugin } from '@capacitor/core';
-import { AppPermissionsPluginPlugin } from './definitions';
+import { AppPermissionsPluginPlugin, PermissionsOptions, PermissionResult } from './definitions';
 export declare class AppPermissionsPluginWeb extends WebPlugin implements AppPermissionsPluginPlugin {
     constructor();
-    echo(options: {
-        value: string;
-    }): Promise<{
-        value: string;
-    }>;
+    query(options: PermissionsOptions): Promise<PermissionResult>;
 }
 declare const AppPermissionsPlugin: AppPermissionsPluginWeb;
 export { AppPermissionsPlugin };
