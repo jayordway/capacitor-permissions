@@ -24,14 +24,6 @@ export interface PermissionsRequestResult {
 export interface PermissionsPlugin extends Plugin {
     query(options: PermissionsOptions): Promise<PermissionResult>;
 }
-export declare enum PermissionType {
-    Camera = "camera",
-    Photos = "photos",
-    Geolocation = "geolocation",
-    Notifications = "notifications",
-    ClipboardRead = "clipboard-read",
-    ClipboardWrite = "clipboard-write"
-}
 export interface PermissionsOptions {
     name: PermissionType;
 }
