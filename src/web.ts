@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { AppPermissionsPlugin, PermissionsOptions, PermissionResult } from './definitions';
+import { PermissionsPlugin, PermissionsOptions, PermissionResult } from './definitions';
 
 
 export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlugin {
