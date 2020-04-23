@@ -6,7 +6,6 @@ declare module "@capacitor/core" {
 export interface Plugin {
     addListener(eventName: string, listenerFunc: Function): PluginListenerHandle;
     requestPermissions?: () => Promise<PermissionsRequestResult>;
-    query?: (options: PermissionsOptions) => Promise<PermissionResult>;
 }
 export interface PluginListenerHandle {
     remove: () => void;
