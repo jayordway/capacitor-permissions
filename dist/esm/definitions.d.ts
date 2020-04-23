@@ -10,6 +10,14 @@ export interface Plugin {
 export interface PluginListenerHandle {
     remove: () => void;
 }
+export declare enum PermissionType {
+    Camera = "camera",
+    Photos = "photos",
+    Geolocation = "geolocation",
+    Notifications = "notifications",
+    ClipboardRead = "clipboard-read",
+    ClipboardWrite = "clipboard-write"
+}
 export interface PermissionsRequestResult {
     results: any[];
 }
