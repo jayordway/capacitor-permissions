@@ -2,7 +2,7 @@ import { WebPlugin } from '@capacitor/core';
 export class AppPermissionsPluginWeb extends WebPlugin {
     constructor() {
         super({
-            name: "AppPermissions",
+            name: "Permissions",
             platforms: ["web"]
         });
     }
