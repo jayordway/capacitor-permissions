@@ -9,7 +9,7 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
                       platforms: ["web"]
                     });
                   }
-   query(options: PermissionsOptions): Promise<PermissionResult>;
+
 }
 
 const AppPermissionsPlugin = new AppPermissionsPluginWeb();
