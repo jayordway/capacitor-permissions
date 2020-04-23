@@ -10,7 +10,7 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
                     });
                   }
 
-   async request(options: { permission: string }): Promise<{ status: string }> => {
+   async request(options: { permission: string }): Promise<{ status: string }>  {
        return {
               status: options.permission
            };
@@ -23,11 +23,7 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
          return Promise.reject('This browser does not support the Permissions API');
        }
 
-       // Photos isn't supported in the web but it's equivalent to the camera permission
-       // since the prompt lets you pick from an album
-       const name = options.name === PermissionType.Photos ? 'camera' : options.name;
-
-       const ret = await navigator.permissions.query({ name });
+       const ret = await navigator.permissions.query({ options.name });
 
        return {
          state: ret.state
