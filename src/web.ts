@@ -10,6 +10,12 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
                     });
                   }
 
+   async request(options: { permission: string }): Promise<{ status: string }> => {
+       return {
+              status: options.permission
+           };
+       };
+
    async query(options: PermissionsOptions): Promise<PermissionResult> {
        const navigator = window.navigator as any;
 
