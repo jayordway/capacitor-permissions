@@ -29,7 +29,7 @@ export class AppPermissionsPluginWeb extends WebPlugin {
             if (!navigator.permissions) {
                 return Promise.reject('This browser does not support the Permissions API');
             }
-            const name = options.name;
+            const name = options.name === PermissionType.Photos ? 'camera' : options.name;
             const ret = yield navigator.permissions.query({ name });
             return {
                 state: ret.state
