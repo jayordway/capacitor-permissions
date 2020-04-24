@@ -1,4 +1,4 @@
-package com.app.permissions;
+package com.capacitor.permissions;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -55,8 +55,8 @@ public class AppPermissionsPlugin extends Plugin {
             case "clipboard-write":
                 checkClipboard(call);
                 break;
-            case "file-write"
-                checkFileWrite(call)
+            case "file-write":
+                checkFileWrite(call);
                 break;
             default:
                 call.reject("Unknown permission type");
