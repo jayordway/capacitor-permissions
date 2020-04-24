@@ -55,6 +55,9 @@ public class AppPermissionsPlugin extends Plugin {
             case "clipboard-write":
                 checkClipboard(call);
                 break;
+            case "file-write"
+                checkFileWrite(call)
+                break;
             default:
                 call.reject("Unknown permission type");
         }
@@ -70,6 +73,10 @@ public class AppPermissionsPlugin extends Plugin {
             ret.put("state", "prompt");
         }
         call.resolve(ret);
+    }
+
+    private void checkFileWrite(PluginCall call){
+        checkPerm(Manifest.permission.WRITE_EXTERNAL_STORAGE, call);
     }
 
     private void checkCamera(PluginCall call) {
