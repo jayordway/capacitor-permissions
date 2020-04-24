@@ -12,8 +12,7 @@ import { PermissionType } from './definitions';
 export class AppPermissionsPluginWeb extends WebPlugin {
     constructor() {
         super({
-            name: "AppPermissions",
-            platforms: ["web"]
+            name: "AppPermissions"
         });
     }
     request(options) {

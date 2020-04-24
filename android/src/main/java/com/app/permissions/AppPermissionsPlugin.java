@@ -8,6 +8,9 @@ import com.getcapacitor.PluginMethod;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+
+
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
@@ -18,9 +21,9 @@ public class AppPermissionsPlugin extends Plugin {
     public void request(PluginCall call){
         JSObject ret = new JSObject();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "No Permissions" , Toast.LENGTH_LONG).show();
-            ActivityCompat.requestPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, 0);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             ret.put("state", "GRANTED");
         }
         else
