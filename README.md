@@ -27,9 +27,11 @@ npx cap sync
 
 ### request
 
+Request permissions
+
 ### query
 
-Request permissions
+Check if permission is granted
 
 
 ## Licence

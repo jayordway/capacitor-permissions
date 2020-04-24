@@ -12,6 +12,7 @@ export interface PluginListenerHandle {
 export declare enum PermissionType {
     Camera = "camera",
     Photos = "photos",
+    FileWrite = "file-write",
     Geolocation = "geolocation",
     Notifications = "notifications",
     ClipboardRead = "clipboard-read",
