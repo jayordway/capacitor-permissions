@@ -1,5 +1,5 @@
 
   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.app.permissions.capacitorapppermissions">
+      package="com.capacitor.permissions.apppermissionsplugin">
   </manifest>
   
