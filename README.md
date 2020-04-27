@@ -13,7 +13,7 @@ Supported Permissions:
 
 ## Process:
 
-- ☑️ [ios] more to come...
+- ☑️ [iOS] more to come...
 - ✅ [Android] request(options: { permission: string }): Promise<{ status: string }> , query(options: PermissionsOptions): Promise<PermissionResult>
 
 ## Install
