@@ -1,4 +1,4 @@
-# capacitor-app-permissions
+# capacitor-permissions
 
 Check and request permissions with a Capacitor plugin
 
