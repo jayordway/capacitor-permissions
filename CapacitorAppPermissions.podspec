@@ -1,6 +1,6 @@
 
   Pod::Spec.new do |s|
-    s.name = 'CapacitorAppPermissions'
+    s.name = 'CapacitorPermissions'
     s.version = '0.0.2'
     s.summary = 'A Capacitor plugin for accessing and requesting app permissions'
     s.license = 'MIT'
