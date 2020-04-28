@@ -1,6 +1,6 @@
 {
   "name": "capacitor-permissions",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A Capacitor plugin for accessing and requesting app permissions",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
