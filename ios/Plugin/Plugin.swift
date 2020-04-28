@@ -7,7 +7,7 @@ import Photos
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitor.ionicframework.com/docs/plugins/ios
  */
-@objc(Permissions)
+@objc(AppPermissionsPlugin)
 public class AppPermissionsPlugin: CAPPlugin {
     private let locationManager = CLLocationManager()
     
