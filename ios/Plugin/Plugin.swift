@@ -11,7 +11,7 @@ import Photos
 public class AppPermissionsPlugin: CAPPlugin {
     private let locationManager = CLLocationManager()
     
-    @objc func requestPermission(_ call: CAPPluginCall) {
+    @objc func request(_ call: CAPPluginCall) {
         let permission = call.getString("permission") ?? ""
         var status = ""
         switch (permission) {
@@ -71,8 +71,8 @@ public class AppPermissionsPlugin: CAPPlugin {
         
     }
     
-    @objc func checkStatus(_ call: CAPPluginCall) {
-        let permission = call.getString("permission") ?? ""
+    @objc func query(_ call: CAPPluginCall) {
+        let permission = call.getString("name") ?? ""
         var status = "";
         switch (permission) {
             case "LOCATION_WHEN_IN_USE", "LOCATION_ALWAYS":
