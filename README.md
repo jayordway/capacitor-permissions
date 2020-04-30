@@ -8,8 +8,8 @@ Supported Permissions:
 - Photo Library
 - Notification
 - Write to External Files
-- Location \*
-- Location Always \*
+- Read External Files
+- Geolocation
 
 ## Process:
 
