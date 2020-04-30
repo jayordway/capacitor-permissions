@@ -21,7 +21,7 @@ public class AppPermissionsPlugin: CAPPlugin {
             case "LOCATION_ALWAYS":
                 locationManager.requestAlwaysAuthorization();
             break;
-            case "PHOTO_LIBRARY":
+            case "photos":
                 PHPhotoLibrary.requestAuthorization { (PHAuthorizationStatus) in
                     switch (PHAuthorizationStatus) {
                         case .authorized:
@@ -39,7 +39,7 @@ public class AppPermissionsPlugin: CAPPlugin {
                     ])
                 }
             break;
-            case "CAMERA":
+            case "camera":
                 AVCaptureDevice.requestAccess(for: .video) { (granted) in
                     if granted {
                         status = "CAMERA/AUTHORIZED";
@@ -52,7 +52,7 @@ public class AppPermissionsPlugin: CAPPlugin {
                     ])
                 }
             break;
-            case "NOTIFICATION":
+            case "notifications":
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
                     if granted {
                         status = "NOTIFICATION/AUTHORIZED";
@@ -70,80 +70,26 @@ public class AppPermissionsPlugin: CAPPlugin {
         }
         
     }
-    
+
     @objc func query(_ call: CAPPluginCall) {
-        let permission = call.getString("name") ?? ""
-        var status = "";
-        switch (permission) {
-            case "LOCATION_WHEN_IN_USE", "LOCATION_ALWAYS":
-                switch (CLLocationManager.authorizationStatus()) {
-                    case.authorizedAlways:
-                        status = "LOCATION/AUTHORIZED_ALWAYS";
-                        break;
-                    case.authorizedWhenInUse:
-                        status = "LOCATION/AUTHORIZED_WHEN_IN_USE";
-                        break;
-                    case.denied, .restricted:
-                        status = "LOCATION/DENIED";
-                        break;
-                    case .notDetermined:
-                        status = "LOCATION/NOT_DETERMINED";
-                        break;
-                }
-                call.resolve([
-                    "status": status
-                ])
-            break;
-            case "PHOTO_LIBRARY":
-                switch (PHPhotoLibrary.authorizationStatus()) {
-                    case .authorized:
-                        status = "PHOTO_LIBRARY/AUTHORIZED";
-                        break;
-                    case.denied, .restricted:
-                        status = "PHOTO_LIBRARY/DENIED";
-                        break;
-                    case.notDetermined:
-                        status = "PHOTO_LIBRARY/NOT_DETERMINED";
-                        break;
-                }
-                call.resolve([
-                    "status": status
-                ])
-            break;
-            case "CAMERA":
-                switch (AVCaptureDevice.authorizationStatus(for: .video)) {
-                    case .authorized:
-                        status = "CAMERA/AUTHORIZED";
-                        break;
-                    case.denied, .restricted:
-                        status = "CAMERA/DENIED";
-                        break;
-                    case.notDetermined:
-                        status = "CAMERA/NOT_DETERMINED";
-                        break;
-                }
-                call.resolve([
-                    "status": status
-                ])
-            break;
-            case "NOTIFICATION":
-                UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-                    switch settings.authorizationStatus {
-                        case .authorized, .provisional:
-                            status = "NOTIFICATION/AUTHORIZED";
-                        case .denied:
-                            status = "NOTIFICATION/DENIED";
-                        case .notDetermined:
-                            status = "NOTIFICATION/NOT_DETERMINED";
-                        }
-                        call.resolve([
-                            "status": status
-                        ])
-                    }
-                )
-            break;
+        guard let name = call.getString("name") else {
+            call.reject("Must provide a permission to check")
+            return
+        }
+
+        switch (name) {
+        case "camera":
+            return checkCamera(call)
+        case "geolocation":
+            return checkGeolocation(call)
+        case "notifications":
+            return checkNotifications(call)
+        case "clipboard-read", "clipboard-write":
+            return checkClipboard(call)
+        case "photos":
+            return checkPhotos(call)
         default:
-            status = "ERROR";
+            return call.reject("Unknown permission type")
         }
     }
 }

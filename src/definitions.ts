@@ -12,15 +12,6 @@ export interface PluginListenerHandle {
     remove: () => void;
 }
 
-export declare enum PermissionType {
-    Camera = "camera",
-    Photos = "photos",
-    FileWrite = "file-write",
-    Geolocation = "geolocation",
-    Notifications = "notifications",
-    ClipboardRead = "clipboard-read",
-    ClipboardWrite = "clipboard-write"
-}
 
 export interface PermissionsRequestResult {
     results: any[];
@@ -32,7 +23,7 @@ export interface PermissionsPlugin extends Plugin {
 }
 
 export interface PermissionsOptions {
-    name: PermissionType;
+    name: string;
 }
 export interface PermissionResult {
     state: 'granted' | 'denied' | 'prompt';
