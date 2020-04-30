@@ -13,8 +13,8 @@ Supported Permissions:
 
 ## Supporting:
 
-- ✅ [iOS] 
-- ✅ [Android] 
+- ✅ iOS 
+- ✅ Android
 
 ## Install
 
