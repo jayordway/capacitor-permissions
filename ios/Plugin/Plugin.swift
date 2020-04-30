@@ -25,13 +25,13 @@ public class AppPermissionsPlugin: CAPPlugin {
                 PHPhotoLibrary.requestAuthorization { (PHAuthorizationStatus) in
                     switch (PHAuthorizationStatus) {
                         case .authorized:
-                            status = "PHOTO_LIBRARY/AUTHORIZED";
+                            status = "granted";
                             break;
                     case.denied, .restricted:
-                            status = "PHOTO_LIBRARY/DENIED";
+                            status = "denied";
                             break;
                         case.notDetermined:
-                            status = "PHOTO_LIBRARY/NOT_DETERMINED";
+                            status = "not_determined";
                             break;
                     }
                     call.resolve([
@@ -42,10 +42,10 @@ public class AppPermissionsPlugin: CAPPlugin {
             case "camera":
                 AVCaptureDevice.requestAccess(for: .video) { (granted) in
                     if granted {
-                        status = "CAMERA/AUTHORIZED";
+                        status = "granted";
                     }
                     else {
-                        status = "CAMERA/DENIED";
+                        status = "denied";
                     }
                     call.success([
                         "status": status
@@ -55,10 +55,10 @@ public class AppPermissionsPlugin: CAPPlugin {
             case "notifications":
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
                     if granted {
-                        status = "NOTIFICATION/AUTHORIZED";
+                        status = "granted";
                     }
                     else {
-                        status = "NOTIFICATION/DENIED";
+                        status = "denied";
                     }
                     call.success([
                         "status": status
@@ -84,8 +84,6 @@ public class AppPermissionsPlugin: CAPPlugin {
             return checkGeolocation(call)
         case "notifications":
             return checkNotifications(call)
-        case "clipboard-read", "clipboard-write":
-            return checkClipboard(call)
         case "photos":
             return checkPhotos(call)
         default:
