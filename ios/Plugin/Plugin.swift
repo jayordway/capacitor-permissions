@@ -15,11 +15,8 @@ public class AppPermissionsPlugin: CAPPlugin {
         let permission = call.getString("permission") ?? ""
         var status = ""
         switch (permission) {
-            case "LOCATION_WHEN_IN_USE":
+            case "geolocation":
                 locationManager.requestWhenInUseAuthorization();
-            break;
-            case "LOCATION_ALWAYS":
-                locationManager.requestAlwaysAuthorization();
             break;
             case "photos":
                 PHPhotoLibrary.requestAuthorization { (PHAuthorizationStatus) in
@@ -90,4 +87,80 @@ public class AppPermissionsPlugin: CAPPlugin {
             return call.reject("Unknown permission type")
         }
     }
+
+
+    func checkCamera(_ call: CAPPluginCall) {
+        let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
+
+        var ret = "prompt"
+        switch (authStatus) {
+        case .notDetermined:
+            ret = "prompt"
+        case .denied, .restricted:
+            ret = "denied"
+        case .authorized:
+            ret = "granted"
+        }
+
+        call.resolve([
+            "state": ret
+        ])
+    }
+
+    func checkPhotos(_ call: CAPPluginCall) {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+
+        var ret = "prompt"
+        switch (photoAuthorizationStatus) {
+        case .notDetermined:
+            ret = "prompt"
+        case .denied, .restricted:
+            ret = "denied"
+        case .authorized:
+            ret = "granted"
+        }
+        call.resolve([
+            "state": ret
+        ])
+    }
+
+    func checkGeolocation(_ call: CAPPluginCall) {
+        var ret = "prompt"
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined:
+                ret = "prompt"
+            case .denied, .restricted:
+                ret = "denied"
+            case .authorizedAlways, .authorizedWhenInUse:
+                ret = "granted"
+            }
+        } else {
+            ret = "denied"
+        }
+
+        call.resolve([
+            "state": ret
+        ])
+    }
+
+    func checkNotifications(_ call: CAPPluginCall) {
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+            var ret = "prompt"
+            switch settings.authorizationStatus {
+            case .authorized, .provisional:
+                ret = "granted"
+            case .denied:
+                ret = "denied"
+            case .notDetermined:
+                ret = "prompt"
+            }
+
+            call.resolve([
+                "state": ret
+            ])
+        })
+    }
+
+
 }
