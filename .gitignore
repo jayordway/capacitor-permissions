@@ -5,3 +5,4 @@ android/.idea
 android/local.properties
 android/.gradle
 android/android.iml
+ios/.idea
