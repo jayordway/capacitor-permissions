@@ -4,17 +4,17 @@ Check and request permissions with a Capacitor plugin
 
 Supported Permissions:
 
-- Camera
-- Photo Library
-- Notification
-- Write to External Files
-- Read External Files
-- Geolocation
+- Camera ("camera")
+- Photo Library ("photos")
+- Notification ("notifications")
+- Write to External Files ("file-write")
+- Read External Files 
+- Geolocation ("geolocation")
 
-## Process:
+## Supporting:
 
-- ☑️ [iOS] more to come...
-- ✅ [Android] request(options: { permission: string }): Promise<{ status: string }> , query(options: PermissionsOptions): Promise<PermissionResult>
+- ✅ [iOS] 
+- ✅ [Android] 
 
 ## Install
 
@@ -32,7 +32,6 @@ Request permissions
 ### query
 
 Check if permission is granted
-
 
 ## Licence
 
