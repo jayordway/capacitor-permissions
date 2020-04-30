@@ -11,12 +11,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-@NativePlugin()
+@NativePlugin(requestCodes = {AppPermissionsPlugin.REQUEST_CAMERA, AppPermissionsPlugin.REQUEST_COARSE_LOCATION,
+        AppPermissionsPlugin.REQUEST_READ_EXTERNAL_STORAGE, AppPermissionsPlugin.REQUEST_WRITE_EXTERNAL_STORAGE,
+        AppPermissionsPlugin.REQUEST_NOTIFICATION_POLICY})
 public class AppPermissionsPlugin extends Plugin {
 
     static final int REQUEST_CAMERA = 20120;
@@ -30,22 +32,22 @@ public class AppPermissionsPlugin extends Plugin {
     @PluginMethod
     public void request(PluginCall call) {
         String name = call.getString("permission");
-
+        saveCall(call);
         switch (name) {
             case "camera":
-                requestPermissions(call, Manifest.permission.CAMERA, REQUEST_CAMERA);
+                requestPermissions(Manifest.permission.CAMERA, REQUEST_CAMERA);
                 break;
             case "photos":
-                requestPermissions(call, Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE);
+                requestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_READ_EXTERNAL_STORAGE);
                 break;
             case "geolocation":
-                requestPermissions(call, Manifest.permission.ACCESS_COARSE_LOCATION, REQUEST_COARSE_LOCATION);
+                requestPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, REQUEST_COARSE_LOCATION);
                 break;
             case "notifications":
-                requestPermissions(call, Manifest.permission.ACCESS_NOTIFICATION_POLICY, REQUEST_NOTIFICATION_POLICY);
+                requestPermissions(Manifest.permission.ACCESS_NOTIFICATION_POLICY, REQUEST_NOTIFICATION_POLICY);
                 break;
             case "file-write":
-                requestPermissions(call, Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_WRITE_EXTERNAL_STORAGE);
+                requestPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_WRITE_EXTERNAL_STORAGE);
                 break;
             default:
                 call.reject("Unknown permission type");
@@ -53,16 +55,34 @@ public class AppPermissionsPlugin extends Plugin {
 
     }
 
-    private void requestPermissions(PluginCall call, String permission, int permissionConstant) {
+    private void requestPermissions(String permission, int permissionConstant) {
+        pluginRequestPermission(permission, permissionConstant);
+    }
+
+    @Override
+    protected void handleRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.handleRequestPermissionsResult(requestCode, permissions, grantResults);
         JSObject ret = new JSObject();
-        try {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, permissionConstant);
-            ret.put("state", "granted");
-        } catch (Error error){
-            ret.put("state", "denied");
+        PluginCall savedCall = getSavedCall();
+
+        if (savedCall == null) {
+            return;
         }
 
-        call.resolve(ret);
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                ret.put("state", "denied");
+                savedCall.resolve(ret);
+                return;
+            }
+        }
+
+        if (requestCode == REQUEST_CAMERA || requestCode == REQUEST_COARSE_LOCATION || requestCode == REQUEST_READ_EXTERNAL_STORAGE ||
+                requestCode == REQUEST_NOTIFICATION_POLICY || requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
+            // We got the permission
+            ret.put("state", "granted");
+            savedCall.resolve(ret);
+        }
     }
 
 
