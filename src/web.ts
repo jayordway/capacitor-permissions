@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { PermissionsPlugin, PermissionsOptions, PermissionResult, PermissionType } from './definitions';
+import { PermissionsPlugin, PermissionsOptions, PermissionResult } from './definitions';
 
 
 export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlugin {
@@ -22,7 +22,7 @@ export class AppPermissionsPluginWeb extends WebPlugin implements PermissionsPlu
          return Promise.reject('This browser does not support the Permissions API');
        }
 
-       const name = options.name === PermissionType.Photos ? 'camera' : options.name;
+       const name = options.name;
        const ret = await navigator.permissions.query({ name });
 
        return {
